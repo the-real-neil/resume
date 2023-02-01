@@ -19,16 +19,20 @@ all: resume.pdf resume.html resume.txt
 
 .PHONY: clean
 clean:
-	rm -vrf \
-		*.aux \
-		*.css \
-		*.html \
-		*.log \
-		*.old \
-		*.pdf \
-		*.pl \
-		*.png \
-		*.svg \
-		*.txt \
-		*~ \
-		;
+	find . \
+		-type f \
+		! -path './.git/*' \
+		\( -false \
+		-o -name '*.aux' \
+		-o -name '*.css' \
+		-o -name '*.html' \
+		-o -name '*.log' \
+		-o -name '*.old' \
+		-o -name '*.pdf' \
+		-o -name '*.pl' \
+		-o -name '*.png' \
+		-o -name '*.svg' \
+		-o -name '*.txt' \
+		-o -name '*~' \
+		\) \
+		-exec echo rm -vf {} +
