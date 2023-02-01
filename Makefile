@@ -3,8 +3,11 @@
 .PHONY: all
 all: resume.pdf resume.html resume.txt
 
-%.pdf: %.tex
+%.pdf: %.tex email.txt
 	pdflatex -halt-on-error $<
+
+email.txt:
+	git config user.email >$@
 
 # %.html: %.tex
 # 	latex2html -info "" -no_antialias -no_antialias_text -no_auto_link		\
@@ -35,4 +38,4 @@ clean:
 		-o -name '*.txt' \
 		-o -name '*~' \
 		\) \
-		-exec echo rm -vf {} +
+		-exec rm -vf {} +
