@@ -1,6 +1,11 @@
 *.aux
+*.css
 *.html
 *.log
+*.old
 *.pdf
+*.pl
+*.png
+*.svg
 *.txt
 *~
