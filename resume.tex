@@ -1,8 +1,12 @@
 %% resume/resume.tex
 
-\documentclass[letterpaper,10pt]{article}
+\documentclass[letterpaper,11pt]{article}
 \usepackage{geometry}
 \geometry{margin=54pt}
+
+%% https://tex.stackexchange.com/questions/10684/vertical-space-in-lists
+\usepackage{enumitem}
+\setlist{nosep}
 
 \title{Neil Roza}
 
@@ -20,7 +24,6 @@
 Realtime Robotics Inc., Principal Systems Engineer, 2018 September - present
 
 \begin{itemize}
-\itemsep0em
 \item c/c++ software development
 \item Linux/unix system administration
 \item CI/CD pipeline implementation
@@ -33,7 +36,6 @@ Realtime Robotics Inc., Principal Systems Engineer, 2018 September - present
 Rethink Robotics, Systems Software Engineer, 2016 August - 2018 September
 
 \begin{itemize}
-  \itemsep0em
 \item author/maintain robot configuration/monitoring tools (c, c++, python,
   shell)
 \item administer internal git source control repositories (gitlab, bitbucket)
@@ -52,7 +54,6 @@ Rethink Robotics, Systems Software Engineer, 2016 August - 2018 September
 BAE Systems Applied Intelligence, Software Engineer, 2015 June - 2016 July
 
 \begin{itemize}
-\itemsep0em
 \item maintenance and extension of PollyC compiler/runtime (c, c++, Docker)
 \item REST endpoint design/development (c, c++, go, js, python)
 \item sql data and schema wrangling
@@ -61,7 +62,6 @@ BAE Systems Applied Intelligence, Software Engineer, 2015 June - 2016 July
 FactSet, Software Engineer, 2012 February - 2015 June
 
 \begin{itemize}
-\itemsep0em
 \item maintenance of portfolio analytics product line
 \item instrumentation and logging of client data for profiling and performance analysis
 \item design and implementation of map-reduce framework for logging aggregation
@@ -70,7 +70,6 @@ FactSet, Software Engineer, 2012 February - 2015 June
 Passport Systems Inc., Software Engineer, 2009 November - 2012 February
 
 \begin{itemize}
-\itemsep0em
 \item design/implementation Linux system software and kernel drivers for various
 third-party data acquisition devices
 \item implementation of real-time data aggregation framework for mobile devices
@@ -81,7 +80,6 @@ third-party data acquisition devices
 Bridgewater State University, Graduate Assistant, 2007 September - 2009 September
 
 \begin{itemize}
-\itemsep0em
 \item technical support at the Teaching Technology Center
 \item webmaster
 \end{itemize}
