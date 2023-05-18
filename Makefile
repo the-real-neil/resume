@@ -3,6 +3,10 @@
 .PHONY: all
 all: resume.pdf resume.html resume.txt
 
+.PHONY: check
+check: resume.tex email.txt
+	chktex $<
+
 %.pdf: %.tex email.txt
 	pdflatex -halt-on-error $<
 
