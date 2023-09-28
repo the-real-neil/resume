@@ -1,12 +1,12 @@
 %% resume/resume.tex
 
-\documentclass[letterpaper,11pt]{article}
+\documentclass[letterpaper,12pt]{article}
 \usepackage{geometry}
 \geometry{margin=54pt}
 
 %% https://tex.stackexchange.com/questions/10684/vertical-space-in-lists
-\usepackage{enumitem}
-\setlist{nosep}
+%% \usepackage{enumitem}
+%% \setlist{nosep}
 
 \title{Neil Roza}
 
@@ -19,33 +19,47 @@
 
 \input{email.txt}
 
+617.294.9853
+
+Boston, MA
+
 \subsection*{Experience}
 
 Realtime Robotics Inc., Principal Systems Engineer, 2018 September --- present
 
 \begin{itemize}
-\item c/c++ software development
-\item Linux/Unix system administration
-\item CI/CD pipeline design/implementation/administration (Gitlab, Docker)
-\item Debian/Ubuntu installer engineering
-\item Debian package maintenance and repository administration
-\item public key infrastructure engineering (GnuPG, OpenSSH)
-\item aws integration
+\item C/C++ software development: integrated flagship product suite into Linux
+  conventions, up to and including real-time constraints via preemptrt
+\item Linux/Unix system administration: provisioning and monitoring for
+  self-hosted and third-party infrastructure
+\item CI/CD pipeline design/implementation/administration: formalized and
+  unified build processes and artifact delivery (Gitlab, Docker)
+\item Debian/Ubuntu installer engineering: developed self-contained OS
+  installation media for fast and non-interactive deployments
+\item Debian package maintenance and repository administration: packaging,
+  releasing, signing, and publishing to Launchpad to eliminate hosting costs.
+\item public key infrastructure engineering: allows the verification and
+  validation of all built artifacts (GnuPG, OpenSSH)
+\item AWS integration: joined pipeline processes to AWS assets, reducing
+  monthly hosting costs
 \end{itemize}
 
 Rethink Robotics, Systems Software Engineer, 2016 August --- 2018 September
 
 \begin{itemize}
-\item author/maintain robot configuration/monitoring tools (c, c++, python,
-  shell)
+\item author/maintain robot configuration/monitoring tools, up to and including
+  PLC clients over profinet (c, c++, python, shell)
 \item internal git source control administration (Gitlab, Bitbucket)
 \item CI/CD pipeline design, implementation, and administration (Jenkins,
   Docker, shell, groovy)
 \item Ubuntu server/workstation provisioning/maintenance (ansible, shell)
-\item public key infrastructure engineering (TPM, GnuPG, OpenSSH, OpenSSL)
+\item public key infrastructure engineering: provided trusted boot with
+  signature validation (TPM, GnuPG, OpenSSH, OpenSSL)
 \item UEFI application development for SecureBoot-enforced bootloaders (c, c++,
   nsh)
-\item Linux kernel/initramfs configuration engineering, module signing
+\item Linux kernel/initramfs configuration engineering, module signing:
+  extended the capabilities of the product suite to hardware with proprietary
+  drivers
 \item Debian package maintenance and repository administration
 \end{itemize}
 
