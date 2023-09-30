@@ -1,33 +1,4 @@
-# resume/.gitlab-ci.yml
-
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_PIPELINE_SOURCE == "push"
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-    - if: $CI_PIPELINE_SOURCE == "web"
-    - if: $CI_PIPELINE_SOURCE == "webide"
-
-pages:
-  image: debian
-  timeout: 30 minutes
-  interruptible: true
-  script:
-    - |
-        set -euvx
-        apt-get --yes update
-        apt-get --yes install \
-            build-essential \
-            texlive \
-            texlive-base \
-            texlive-full \
-            texlive-latex-extra \
-            texlive-latex-recommended \
-            tree \
-            ;
-        make --always-make clean all
-        ls -lah "${PWD}"
-        install -vD resume.html public/index.html
-  artifacts:
-    paths:
-      - public
+# The Docker image that will be used to build your app
+image: debian
+# Functions that should be executed before the build script is run
+before_script: []
