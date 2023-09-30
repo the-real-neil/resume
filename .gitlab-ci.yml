@@ -23,6 +23,7 @@ pages:
             texlive-full \
             texlive-latex-extra \
             texlive-latex-recommended \
+            tree \
             ;
         make --always-make clean all
         ls -lah "${PWD}"

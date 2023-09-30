@@ -7,6 +7,10 @@ all: resume.pdf resume.html resume.txt
 check: resume.tex email.txt
 	chktex $<
 
+public/index.html: resume.pdf resume.html resume.txt
+	install -vDt public $^
+	( cd public && tree -H . -o index.html )
+
 %.pdf: %.tex
 	pdflatex -halt-on-error $<
 
