@@ -1,0 +1,31 @@
+# resume/.gitlab-ci.yml
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "webide"
+
+pages:
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/debian
+  timeout: 30 minutes
+  interruptible: true
+  script:
+    - |
+        set -euvx
+        apt-get --yes update
+        apt-get --yes install \
+            build-essential \
+            texlive \
+            texlive-base \
+            texlive-full \
+            texlive-latex-extra \
+            texlive-latex-recommended \
+            ;
+        make --always-make clean all
+        ls -lah "${PWD}"
+        install -vD resume.html public/index.html
+  artifacts:
+    paths:
+      - public
