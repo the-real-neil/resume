@@ -9,7 +9,7 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "webide"
 
 pages:
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/debian
+  image: debian
   timeout: 30 minutes
   interruptible: true
   script:
