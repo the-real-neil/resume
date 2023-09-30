@@ -7,11 +7,8 @@ all: resume.pdf resume.html resume.txt
 check: resume.tex email.txt
 	chktex $<
 
-%.pdf: %.tex email.txt
+%.pdf: %.tex
 	pdflatex -halt-on-error $<
-
-email.txt:
-	git config user.email >$@
 
 # %.html: %.tex
 # 	latex2html -info "" -no_antialias -no_antialias_text -no_auto_link		\
