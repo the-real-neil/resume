@@ -25,9 +25,7 @@ pages:
             texlive-latex-recommended \
             tree \
             ;
-        make --always-make clean all
-        ls -lah "${PWD}"
-        install -vD resume.html public/index.html
+        make --always-make clean all public/index.html
   artifacts:
     paths:
       - public
