@@ -6,7 +6,11 @@
 %% \usepackage[T1]{fontenc}
 \geometry{margin=55pt}
 
-\hyphenpenalty=999999
+%% https://tex.stackexchange.com/questions/5036/how-to-prevent-latex-from-hyphenating-the-entire-document/177179#177179
+\tolerance=1
+\emergencystretch=\maxdimen{}
+\hyphenpenalty=99999
+\hbadness=99999
 
 %% https://tex.stackexchange.com/questions/10684/vertical-space-in-lists
 %% \usepackage{enumitem}
