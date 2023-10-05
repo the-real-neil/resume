@@ -23,7 +23,7 @@ public/index.html: resume.pdf resume.html resume.txt
 	pdftohtml -enc ASCII7 -s -i -stdout - - <$< >$@
 
 %.txt: %.pdf
-	pdftotext -enc ASCII7 -eol unix  - - <$< >$@
+	pdftotext -nopgbrk -enc ASCII7 -eol unix  - - <$< >$@
 
 .PHONY: clean
 clean:
