@@ -14,16 +14,37 @@ public/index.html: resume.pdf resume.html resume.txt
 %.pdf: %.tex
 	pdflatex -halt-on-error $<
 
+# # Using 'htlatex' is not easy. The 'charset=ascii' seems to have no effect.
 # %.html: %.tex
-# 	latex2html -info "" -no_antialias -no_antialias_text -no_auto_link		\
-# 	-no_footnode -no_images -no_math -no_navigation -no_subdir -no_tex_defs	\
-# 	-nolatex -nouse_pdftex -split 0 -unsegment $<
+# 	htlatex $< "html,charset=ascii,NoFonts,-css"
 
-%.html: %.pdf
-	pdftohtml -enc ASCII7 -s -i -stdout - - <$< >$@
+%.html: %.tex
+	latex2html \
+		-ascii_mode \
+		-info "" \
+		-no_antialias \
+		-no_antialias_text \
+		-no_auto_link \
+		-no_footnode \
+		-no_images \
+		-no_math \
+		-no_navigation \
+		-no_subdir \
+		-no_tex_defs	\
+		-nolatex \
+		-nouse_pdftex \
+		-split 0 \
+		-unsegment \
+		$<
 
-%.txt: %.pdf
-	pdftotext -nopgbrk -enc ASCII7 -eol unix  - - <$< >$@
+%.txt: %.html
+	html2text -ascii -o $@ $<
+
+# %.html: %.pdf
+# 	pdftohtml -enc ASCII7 -s -i -stdout - - <$< >$@
+
+# %.txt: %.pdf
+# 	pdftotext -nopgbrk -enc ASCII7 -eol unix  - - <$< >$@
 
 .PHONY: clean
 clean:
