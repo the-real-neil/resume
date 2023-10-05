@@ -64,5 +64,6 @@ clean:
 		-o -name '*.svg' \
 		-o -name '*.txt' \
 		-o -name '*~' \
+		-o -name 'WARNINGS' \
 		\) \
 		-exec rm -vf {} +
