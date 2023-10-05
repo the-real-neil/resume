@@ -19,6 +19,7 @@ pages:
         apt-get --yes update
         apt-get --yes install \
             build-essential \
+            latex2html \
             texlive \
             texlive-base \
             texlive-full \
