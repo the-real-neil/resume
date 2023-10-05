@@ -9,7 +9,7 @@ check: resume.tex email.txt
 
 public/index.html: resume.pdf resume.html resume.txt
 	install -vDt public $^
-	( cd public && tree -H . -o index.html )
+	( cd public && tree -H . -T "$${CI_PAGES_URL:-file://$$PWD}" -o index.html )
 
 %.pdf: %.tex
 	pdflatex -halt-on-error $<
