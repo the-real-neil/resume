@@ -15,6 +15,7 @@ pages:
   script:
     - |
         set -euvx
+        export
         apt-get --yes update
         apt-get --yes install \
             build-essential \
