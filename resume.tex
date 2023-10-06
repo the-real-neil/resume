@@ -1,15 +1,21 @@
 %% resume/resume.tex
 
 \documentclass[letterpaper,10pt]{article}
+
 \usepackage{geometry}
-%% \usepackage{gentium}
-%% \usepackage[T1]{fontenc}
+
+%% \usepackage{baskervald}
+\usepackage[T1]{fontenc}
+
 \geometry{margin=55pt}
 
 %% https://tex.stackexchange.com/questions/5036/how-to-prevent-latex-from-hyphenating-the-entire-document/177179#177179
 \tolerance=1
+
 \emergencystretch=\maxdimen{}
+
 \hyphenpenalty=99999
+
 \hbadness=99999
 
 %% https://tex.stackexchange.com/questions/10684/vertical-space-in-lists
@@ -33,11 +39,13 @@
 
 \subsection*{Summary}
 
-An experienced platform/systems software engineer with a demonstrated history
-of working in the industrial automation industry. Skilled in the design,
+Experienced platform/systems software engineer with a demonstrated history of
+working in the industrial automation industry. Skilled in the design,
 implementation, deployment, and administration of Linux software systems. Adept
 at finding and solving the stubborn corner-cases that plague any modern
 software business.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Skills}
 
@@ -47,81 +55,191 @@ software business.
   System Administration & Virtualization & Developer Support \\
 \end{tabular*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection*{Experience}
 
-\subsubsection*{Realtime Robotics Inc., Principal Systems Engineer, 2018 September --- 2023 September}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{\textsc{Principal Systems Engineer} | Realtime Robotics Inc. \hfill 2018 September --- 2023 September}
+
+%% Realtime Robotics, Inc. - Boston, Massachusetts
+%%
+%% BUILD ENGINEERING MANAGER March 2021 - September 2023
+%%
+%% PRINCIPAL SYSTEMS ENGINEER September 2018 - March 2021
+%%
 
 \begin{itemize}
-\item AWS integration: joined pipeline processes to AWS assets, reducing
-  monthly hosting costs; deployed caching proxies to minimize bandwidth costs
-\item C/C++ software development: adapted flagship product suite to Linux
-  conventions, including real-time constraints via preemptrt
-\item Linux/Unix system administration: created, automated, and maintained the
+
+\item
+  Created and staffed the DevOps team and built supporting infrastructure
+\item
+  Led and managed the DevOps team: assigned work to and coordinated the actions
+  of my direct reports; fostered inter-team collaboration to gather
+  requirements and formalize specifications; oversaw company-wide
+  infrastructure roll-outs
+\item
+  AWS integration: joined pipeline processes to AWS assets, reducing monthly
+  hosting costs; deployed caching proxies to minimize bandwidth costs
+\item
+  Prioritized build pipeline efficiency: engaged with other team leaders to
+  identify, troubleshoot, and address various shortcomings in all build
+  processes; increased speed while reducing costs
+\item
+  C/C++ software development: adapted flagship product suite to Linux
+  conventions, including realtime constraints via preemptrt
+\item
+  Linux/Unix system administration: created, automated, and maintained the
   provisioning/monitoring for self-hosted and third-party infrastructure
-\item CI/CD pipeline design/implementation/administration: formalized and
-  unified build processes, release management, and artifact delivery (Gitlab,
-  Docker)
-\item Debian/Ubuntu installer engineering: developed OS installation images for
+\item
+  CI/CD pipeline design/implementation/administration: formalized and unified
+  build processes, release management, and artifact delivery (Gitlab, Docker)
+\item
+  Debian/Ubuntu installer engineering: developed OS installation images for
   fast and non-interactive deployments
-\item Debian package maintenance and repository administration: packaged and
+\item
+  Debian package maintenance and repository administration: packaged and
   published open-source dependencies to Launchpad to completely eliminate
   hosting costs
-\item Public key infrastructure: created verification/validation processes and
-  tools for released artifacts (GnuPG, OpenPGP, OpenSSH, golang, shell)
+\item
+  Public key infrastructure: created verification/validation processes and
+  tools for released artifacts (GnuPG, OpenPGP, OpenSSH, Golang, Shell)
+
 \end{itemize}
 
-\subsubsection*{Rethink Robotics, Systems Software Engineer, 2016 August --- 2018 September}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
+%% SYSTEMS SOFTWARE ENGINEER | Rethink Robotics - Boston, Massachusetts
+%%
+%% August 2016 - September 2018
+%%
+
+\subsubsection*{\textsc{Systems Software Engineer} | Rethink Robotics \hfill 2016 August --- 2018 September}
 
 \begin{itemize}
-\item Author/maintained robot configuration/monitoring tools (c, c++, python,
-  shell)
-\item Administered internal git source control (Gitlab, Bitbucket)
-\item Designed, implemented, and administered internal CI/CD pipeline (Jenkins,
-  Docker, shell, groovy)
-\item Ubuntu server/workstation provisioning/maintenance (ansible, shell)
-\item Public key infrastructure engineering: provided trusted boot with
-  signature validation (TPM, GnuPG, OpenSSH, OpenSSL)
-\item UEFI application development for SecureBoot-enforced bootloaders (c, c++,
-  nsh)
-\item Linux kernel/initramfs configuration engineering, module signing:
-  extended the capabilities of the product suite to hardware with proprietary
-  drivers
-\item Debian package maintenance and repository administration
+
+\item
+  Authored and maintained robot configuration/monitoring tools (C/C++, Python,
+  Shell)
+\item
+  Administered internal git source control (Gitlab, Bitbucket)
+\item
+  Designed, implemented, and administered internal CI/CD pipeline (Jenkins,
+  Docker, Shell, Groovy)
+\item
+  Provisioned and maintained Ubuntu servers and workstations (Ansible, Shell)
+\item
+  Maintained public key infrastructure: signed payloads for trusted boot (TPM,
+  GnuPG, OpenSSL)
+\item
+  Developed UEFI bootloader, integrated and validated via SecureBoot (C/C++,
+  Nsh)
+\item
+  Linux kernel/initramfs configuration engineering, module signing: extended
+  the capabilities of the product suite to hardware with proprietary drivers
+\item
+  Maintained Debian packages and administered package repositories
+
 \end{itemize}
 
-\subsubsection*{BAE Systems Applied Intelligence, Software Engineer, 2015 June --- 2016 July}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% SOFTWARE ENGINEER | BAE Systems Applied Intelligence - Boston, Massachusetts
+%%
+%% June 2015 - July 2016
+%%
+
+\subsubsection*{\textsc{Software Engineer} | BAE Systems Applied Intelligence \hfill 2015 June --- 2016 July}
 
 \begin{itemize}
-\item Maintenance and extension of PollyC compiler/runtime (c, c++, Docker)
-\item REST endpoint design/development (C/C++, golang, js, python)
-\item SQL data and schema wrangling
+
+\item
+  Maintained and extended the PollyC compiler/runtime (C/C++, Docker),
+  test-driven development utilizing Docker images for rapid prototyping, built
+  a continuous integration infrastructure utilizing Jenkins and containerized
+  builds
+\item
+  REST endpoint design and development (C/C++, Golang, JS, Python), supported
+  platforms: CentOS, OracleLinux
+\item
+  SQL data and schema manipulation, developed Python tools to migrate/transform
+  customer data, modified MySQL clusters to preserve data versioning and
+  serializability
+\item
+  Consolidated build pipeline infrastructure, worked with Devs to create Docker
+  images for development and testing, worked with Ops to push to (and pull
+  from) private registry
+
 \end{itemize}
 
-\subsubsection*{Factset, Software Engineer, 2012 February --- 2015 June}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% SOFTWARE ENGINEER | FactSet - Boston, Massachusetts
+%%
+%% February 2012 - June 2015
+%%
+
+\subsubsection*{\textsc{Software Engineer} | Factset \hfill 2012 February --- 2015 June}
 
 \begin{itemize}
-\item Maintenance of portfolio analytics product line
-\item Instrumentation and logging of client data for profiling and performance analysis
-\item Design and implementation of map-reduce framework for logging aggregation
+
+\item
+  Maintained the portfolio analytics product suite
+\item
+  Instrumented and logged client data for profiling and performance analysis
+\item
+  Designed and implemented map-reduce framework for logging aggregation
+
 \end{itemize}
 
-\subsubsection*{Passport Systems Inc., Software Engineer, 2009 November --- 2012 February}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% SOFTWARE ENGINEER | Passport Systems, Inc. - Billerica, Massachusetts
+%%
+%% November 2009 - February 2012
+%%
+\subsubsection*{\textsc{Software Engineer} | Passport Systems Inc. \hfill 2009 November --- 2012 February}
 
 \begin{itemize}
-\item Designed/implemented Linux kernel drivers and system software for
+
+\item
+  Designed and implemented Linux kernel drivers and system software for
   third-party devices
-\item Implemented real-time data aggregation framework for mobile devices
-\item Implemented serial communications software for custom sensor devices
-\item Created python tools to administer and orchestrate a mesh network of 60+
+\item
+  Implemented real-time data aggregation framework for mobile devices
+\item
+  Developed serial communications software for custom sensor devices
+\item
+  Created python tools to administer and orchestrate a mesh network of 60+
   mobile android devices
+
 \end{itemize}
 
-\subsubsection*{Bridgewater State University, Graduate Assistant, 2007 September --- 2009 September}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% GRADUATE ASSISTANT | Bridgewater State University - Bridgewater, Massachusetts
+%%
+%% September 2007 - September 2009
+%%
+\subsubsection*{\textsc{Graduate Assistant} | Bridgewater State University \hfill 2007 September --- 2009 September}
 
 \begin{itemize}
 \item Technical support at the Teaching Technology Center
 \item Webmaster
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Education}
+
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} lr }
+  \textsc{Master of Science} \textit{with distinction} Computer Science | Bridgewater State University & 2009 May \\
+  \textsc{Bachelor of Science} \textit{cum laude} Chemistry | Bridgewater State University & 2007 May \\
+\end{tabular*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Publications}
 
@@ -134,18 +252,10 @@ software business.
 
 \subsubsection*{Co-Author}
 \begin{itemize}
-\item Intelligent Radiation Sensor System (IRSS) Advanced Technology
-  Demonstration (ATD) --- 2010 IEEE International Conference on Technologies
-  for Homeland Security (HST), Waltham, MA, USA, 2010, pp. 414\-420, doi:
+\item Intelligent  Radiation   Sensor  System   (IRSS)  Advanced   Technology
+  Demonstration (ATD)  --- 2010  IEEE International Conference  on Technologies
+  for  Homeland Security  (HST), Waltham,  MA,  USA, 2010,  pp. 414\-420,  doi:
   10.1109/THS.2010.5654949.
 \end{itemize}
-
-\subsection*{Education}
-
-Bridgewater State University
-Master of Science (M.S.), Computer Science
-
-Bridgewater State University
-Bachelor of Science (B.S.), Chemistry
 
 \end{document}
