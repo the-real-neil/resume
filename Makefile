@@ -4,7 +4,7 @@
 all: resume.pdf resume.html resume.txt
 
 .PHONY: check
-check: resume.tex email.txt
+check: resume.tex
 	chktex $<
 
 public/index.html: resume.pdf resume.html resume.txt
