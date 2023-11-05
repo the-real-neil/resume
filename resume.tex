@@ -2,6 +2,14 @@
 
 \documentclass[letterpaper,10pt]{article}
 
+%% https://tex.stackexchange.com/questions/427585/hiding-searchable-content-in-a-pdf/427589#427589
+\usepackage{pdfbase}
+\ExplSyntaxOn{}
+\newcommand\hiddenText[1]{
+  \makebox[0pt][l]{\hspace{\paperwidth}\pbs_literal:nn{page}{q~0.00001~0~0~0.00001~0~0~cm~3~Tr}#1\pbs_literal:nn{page}{Q}}
+}
+\ExplSyntaxOff{}
+
 \usepackage{geometry}
 
 %% \usepackage{baskervald}
@@ -28,6 +36,8 @@
 
 \begin{document}
 \pagestyle{empty}
+
+\hiddenText{\input{hidden.txt}}
 
 \section*{\centerline{Neil Roza}}
 
