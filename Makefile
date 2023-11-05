@@ -62,7 +62,6 @@ clean:
 		-o -name '*.pl' \
 		-o -name '*.png' \
 		-o -name '*.svg' \
-		-o -name '*.txt' \
 		-o -name '*~' \
 		-o -name 'WARNINGS' \
 		\) \
