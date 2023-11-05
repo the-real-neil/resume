@@ -48,7 +48,7 @@ public/index.html: resume.pdf resume.html resume.txt
 
 .PHONY: clean
 clean:
-	rm -vrf public
+	rm -vrf public resume.pdf resume.html resume.txt
 	find . \
 		-type f \
 		! -path './.git/*' \
