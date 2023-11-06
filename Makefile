@@ -70,35 +70,32 @@ public/index.html: resume.pdf resume.html resume.txt
 resume.pdf: resume.hidden.txt
 resume.html: resume.hidden.txt
 
-resume.hidden.txt: resume.hidden.html
-	html2text <$< \
-		| sed -e 's/\x1b\[[0-9;?]*[JKmsu]//g' -e 's/[^\x00-\x7f]//g' \
-		| tr -s '[:punct:]' ' ' \
-		| tr '[:upper:]' '[:lower:]' \
-		| grep -Eo '[[:graph:]]+' \
-		| sort -u \
-		| xargs \
-		| fold -sw79 \
-		>$@
-
 ################################################################################
 #
 # This is how you get a target to depend on a variable.
 #
 # https://stackoverflow.com/questions/11647859/make-targets-depend-on-variables/11649835#11649835
-#
-# First, create a 'call'-able function that, for a given variable name, returns
-# a dynamically-generated filename of the form '$VAR_NAME.$VAR_MD5SUM':
-NAME_MD5SUM = $(1).$(firstword $(shell echo $($(1)) | md5sum))
-#
-# Then, let the target in question depend on the dynamically-generated
-# filename:
-resume.hidden.html: $(call NAME_MD5SUM,HIDDEN_TEXT_URL)
-	curl -fsSLo $@ $(HIDDEN_TEXT_URL)
-#
-# Finally, teach 'make' how to create the dynamically-generated filename:
-$(call NAME_MD5SUM,HIDDEN_TEXT_URL):
-	rm -f HIDDEN_TEXT_URL.*
+
+MD5SUM = $(firstword $(shell echo $(1) | md5sum))
+
+resume.hidden.txt: HIDDEN_TEXT.dict.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+	cp -v $< $@
+
+HIDDEN_TEXT.dict.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.txt.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+	sed -e 's/\x1b\[[0-9;?]*[JKmsu]//g' -e 's/[^\x00-\x7f]//g' <$< \
+		| tr -s '[:punct:]' ' ' \
+		| tr '[:upper:]' '[:lower:]' \
+		| grep -Eo '[[:graph:]]+' \
+		| sort -u >$@
+
+HIDDEN_TEXT.txt.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.html.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+	html2text <$< >$@
+
+HIDDEN_TEXT.html.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.uri.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+	xargs curl -fsSLo $@ <$<
+
+HIDDEN_TEXT.uri.$(call MD5SUM,$(HIDDEN_TEXT_URL)):
+	rm -f HIDDEN_TEXT.*
 	echo "$(HIDDEN_TEXT_URL)" >$@
 
 .PHONY: clean
@@ -118,7 +115,7 @@ clean:
 		-o -name '*.svg' \
 		-o -name '*.txt' \
 		-o -name '*~' \
-		-o -name 'HIDDEN_TEXT_URL.*' \
+		-o -name 'HIDDEN_TEXT.*' \
 		-o -name 'WARNINGS' \
 		\) \
 		-exec rm -vf {} +
