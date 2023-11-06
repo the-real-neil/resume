@@ -6,8 +6,15 @@ HIDDEN_TEXT_URL ?= https://blank.page/
 all: resume.pdf resume.html resume.txt
 
 .PHONY: check
+#
+# $ chktex resume.tex
+# ...
+# Warning 29 in resume.hidden.txt line 2: $\times$ may look prettier here.
+# 170 176 180 190 2 20 200 2023 21 215 23 230 254 26 269 27 28 298 2x 3 30 31
+#                                                                   ^
+#
 check: resume.tex
-	chktex $<
+	chktex --nowarn 29 $<
 
 public/index.html: resume.pdf resume.html resume.txt
 	install -vDt public $^
