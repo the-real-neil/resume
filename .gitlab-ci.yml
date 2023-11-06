@@ -19,6 +19,7 @@ pages:
         apt-get --yes update
         apt-get --yes install \
             build-essential \
+            curl \
             html2text \
             latex2html \
             texlive \
