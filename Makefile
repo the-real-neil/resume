@@ -85,7 +85,9 @@ HIDDEN_TEXT.dict.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.txt.$(call MD5SU
 	sed -e 's/\x1b\[[0-9;?]*[JKmsu]//g' -e 's/[^\x00-\x7f]//g' <$< \
 		| tr -s '[:punct:]' ' ' \
 		| tr '[:upper:]' '[:lower:]' \
-		| grep -Eo '[[:graph:]]+' \
+		| grep -Eo '[[:graph:]]{2,}' \
+		| grep -Exv '[[:digit:]]+' \
+		| grep -Fxvf block.list \
 		| sort -u >$@
 
 HIDDEN_TEXT.txt.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.html.$(call MD5SUM,$(HIDDEN_TEXT_URL))
