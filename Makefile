@@ -45,25 +45,6 @@ public/index.html: resume.pdf resume.html resume.txt
 %.txt: %.html
 	html2text -ascii -o $@ $<
 
-# Prevent 'make' from deleting any/all intermediate targets of the form '*.txt'
-# and/or '*.html' after use --- declaring them '.SECONDARY'.
-#
-# https://www.gnu.org/software/make/manual/html_node/Special-Targets.html#index-secondary-targets
-#
-#   The targets which .SECONDARY depends on are treated as intermediate files,
-#   except that they are never automatically deleted.
-#
-# https://stackoverflow.com/questions/47447369/gnu-make-removing-intermediate-files/67780778#67780778
-#
-#   Why is this better than .PRECIOUS? That causes files to be retained even if
-#   their recipe fails when using .DELETE_ON_ERROR. The latter is important to
-#   avoid failing recipes leaving behind bad outputs that are then treated as
-#   current by subsequent make invocations. IMO, you always want
-#   .DELETE_ON_ERROR, but .PRECIOUS breaks it.
-#
-# .SECONDARY: $(%.txt)
-# .SECONDARY: $(%.html)
-
 # For each thing that depends on 'resume.tex', add a dependency on
 # 'resume.hidden.txt'. Do this because 'resume.tex' "includes"
 # 'resume.hidden.txt'.
@@ -71,17 +52,26 @@ resume.pdf: resume.hidden.txt
 resume.html: resume.hidden.txt
 
 ################################################################################
+
+# This is how you do deferred variable expansion.
+#
+# https://git.dpkg.org/cgit/dpkg/dpkg.git/tree/scripts/mk/pkg-info.mk?id=72c00cf6d914c2f230cf62e34c3e2bebc6a468a1
+# https://make.mad-scientist.net/deferred-simple-variable-expansion/
+#
+resume_late_eval ?= $(or $(value RESUME_CACHE_$(1)),$(eval RESUME_CACHE_$(1) := $(shell $(2)))$(value RESUME_CACHE_$(1)))
+
+HIDDEN_TEXT_URL_MD5 = $(call resume_late_eval,HIDDEN_TEXT_URL_MD5,echo $(HIDDEN_TEXT_URL) | md5sum | grep -Eo '^[[:xdigit:]]{32}')
+
+################################################################################
 #
 # This is how you get a target to depend on a variable.
 #
 # https://stackoverflow.com/questions/11647859/make-targets-depend-on-variables/11649835#11649835
-
-MD5SUM = $(firstword $(shell echo $(1) | md5sum))
-
-resume.hidden.txt: HIDDEN_TEXT.dict.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+#
+resume.hidden.txt: HIDDEN_TEXT.dict.$(HIDDEN_TEXT_URL_MD5)
 	cp -v $< $@
 
-HIDDEN_TEXT.dict.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.txt.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+HIDDEN_TEXT.dict.$(HIDDEN_TEXT_URL_MD5): HIDDEN_TEXT.txt.$(HIDDEN_TEXT_URL_MD5)
 	sed -e 's/\x1b\[[0-9;?]*[JKmsu]//g' -e 's/[^\x00-\x7f]//g' <$< \
 		| tr -s '[:punct:]' ' ' \
 		| tr '[:upper:]' '[:lower:]' \
@@ -90,13 +80,13 @@ HIDDEN_TEXT.dict.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.txt.$(call MD5SU
 		| grep -Fxvf block.list \
 		| sort -u >$@
 
-HIDDEN_TEXT.txt.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.html.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+HIDDEN_TEXT.txt.$(HIDDEN_TEXT_URL_MD5): HIDDEN_TEXT.html.$(HIDDEN_TEXT_URL_MD5)
 	html2text <$< >$@
 
-HIDDEN_TEXT.html.$(call MD5SUM,$(HIDDEN_TEXT_URL)): HIDDEN_TEXT.uri.$(call MD5SUM,$(HIDDEN_TEXT_URL))
+HIDDEN_TEXT.html.$(HIDDEN_TEXT_URL_MD5): HIDDEN_TEXT.url.$(HIDDEN_TEXT_URL_MD5)
 	xargs curl -fsSLo $@ <$<
 
-HIDDEN_TEXT.uri.$(call MD5SUM,$(HIDDEN_TEXT_URL)):
+HIDDEN_TEXT.url.$(HIDDEN_TEXT_URL_MD5):
 	rm -f HIDDEN_TEXT.*
 	echo "$(HIDDEN_TEXT_URL)" >$@
 
