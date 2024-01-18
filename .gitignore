@@ -9,5 +9,6 @@
 *.svg
 *.txt
 *~
+EMAIL.*
 HIDDEN_TEXT.*
 WARNINGS

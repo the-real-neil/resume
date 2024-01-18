@@ -45,11 +45,11 @@ public/index.html: resume.pdf resume.html resume.txt
 %.txt: %.html
 	html2text -ascii -o $@ $<
 
-# For each thing that depends on 'resume.tex', add a dependency on
-# 'resume.hidden.txt'. Do this because 'resume.tex' "includes"
-# 'resume.hidden.txt'.
-resume.pdf: resume.hidden.txt
-resume.html: resume.hidden.txt
+# For each thing that depends on 'resume.tex', add dependencies on
+# 'resume.hidden.txt' and 'email.txt'. Do this because 'resume.tex' "includes"
+# 'resume.hidden.txt' and 'email.txt'.
+resume.pdf: resume.hidden.txt email.txt
+resume.html: resume.hidden.txt email.txt
 
 ################################################################################
 
@@ -60,6 +60,9 @@ resume.html: resume.hidden.txt
 #
 resume_late_eval ?= $(or $(value RESUME_CACHE_$(1)),$(eval RESUME_CACHE_$(1) := $(shell $(2)))$(value RESUME_CACHE_$(1)))
 
+# Allow caller to override EMAIL.
+EMAIL ?= $(call resume_late_eval,EMAIL,duck-gen)
+EMAIL_MD5 = $(call resume_late_eval,EMAIL_MD5,echo $(EMAIL) | md5sum | grep -Eo '^[[:xdigit:]]{32}')
 HIDDEN_TEXT_URL_MD5 = $(call resume_late_eval,HIDDEN_TEXT_URL_MD5,echo $(HIDDEN_TEXT_URL) | md5sum | grep -Eo '^[[:xdigit:]]{32}')
 
 ################################################################################
@@ -68,6 +71,13 @@ HIDDEN_TEXT_URL_MD5 = $(call resume_late_eval,HIDDEN_TEXT_URL_MD5,echo $(HIDDEN_
 #
 # https://stackoverflow.com/questions/11647859/make-targets-depend-on-variables/11649835#11649835
 #
+email.txt: EMAIL.txt.$(EMAIL_MD5)
+	cp -v $< $@
+
+EMAIL.txt.$(EMAIL_MD5):
+	rm -f EMAIL.*
+	echo $(EMAIL) >$@
+
 resume.hidden.txt: HIDDEN_TEXT.dict.$(HIDDEN_TEXT_URL_MD5)
 	cp -v $< $@
 
