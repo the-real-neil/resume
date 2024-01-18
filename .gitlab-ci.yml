@@ -15,6 +15,8 @@ pages:
   script:
     - |
         set -euvx
+        EMAIL="${EMAIL:-"$(echo "${CI_COMMIT_AUTHOR}" | grep -Eo '[^<>]+@[^<>]+')"}"
+        export EMAIL
         export
         apt-get --yes update
         apt-get --yes install \
