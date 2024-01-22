@@ -17,6 +17,8 @@ pages:
         set -euvx
         EMAIL="${EMAIL:-"$(echo "${CI_COMMIT_AUTHOR}" | grep -Eo '[^<>]+@[^<>]+')"}"
         export EMAIL
+        TREE_TITLE="${TREE_TITLE:-${CI_PAGES_URL}}"
+        export TREE_TITLE
         export
         apt-get --yes update
         apt-get --yes install \

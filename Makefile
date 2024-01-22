@@ -1,5 +1,8 @@
 # resume/Makefile
 
+THIS := $(abspath $(lastword $(MAKEFILE_LIST)))
+HERE := $(patsubst %/,%,$(dir $(THIS)))
+
 HIDDEN_TEXT_URL ?= https://blank.page/
 
 .PHONY: all
@@ -16,9 +19,10 @@ all: resume.pdf resume.html resume.txt
 check: resume.tex
 	chktex --nowarn 29 $<
 
+public/index.html: TREE_TITLE ?= file://$(HERE)
 public/index.html: resume.pdf resume.html resume.txt
 	install -vDt public $^
-	( cd public && tree -H . -T "$${CI_PAGES_URL:-file://$$PWD}" -o index.html )
+	( cd public && tree -H . -T $(TREE_TITLE) -o index.html )
 
 %.pdf: %.tex
 	pdflatex -halt-on-error $<
