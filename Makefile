@@ -30,10 +30,9 @@ all: resume.pdf resume.html resume.txt
 check: resume.tex
 	chktex --nowarn 29 $<
 
-public/index.html: TREE_TITLE ?= file://$(HERE)
 public/index.html: resume.pdf resume.html resume.txt
 	install -vDt public $^
-	( cd public && tree -H . -T $(TREE_TITLE) -o index.html )
+	( cd public && tree -H . -T "$${TREE_TITLE:-file://$${PWD}}" -o index.html )
 
 %.pdf: %.tex
 	pdflatex -halt-on-error $<
