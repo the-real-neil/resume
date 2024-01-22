@@ -74,10 +74,10 @@ resume.html: resume.hidden.txt email.txt
 
 EMAIL ?= $(call resume_late_eval,EMAIL,duck-gen)
 EMAIL_MD5 = $(call resume_late_eval,EMAIL_MD5,echo $(EMAIL) | md5sum | grep -Eo '^[[:xdigit:]]{32}')
-email.txt: EMAIL.txt.$(EMAIL_MD5)
+email.txt: email.txt.$(EMAIL_MD5)
 	cp -v $< $@
-EMAIL.txt.$(EMAIL_MD5):
-	rm -f EMAIL.*
+email.txt.$(EMAIL_MD5):
+	rm -f email.txt.*
 	echo $(EMAIL) >$@
 
 HIDDEN_TEXT_URL ?= https://blank.page/
@@ -126,5 +126,6 @@ clean:
 		-o -name '*~' \
 		-o -name 'HIDDEN_TEXT.*' \
 		-o -name 'WARNINGS' \
+		-o -name 'email.txt.*' \
 		\) \
 		-exec rm -vf {} +
