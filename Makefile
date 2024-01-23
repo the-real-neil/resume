@@ -23,7 +23,7 @@ all: resume.pdf resume.html resume.txt
 #
 # $ chktex resume.tex
 # ...
-# Warning 29 in resume.hidden.txt line 2: $\times$ may look prettier here.
+# Warning 29 in hidden.txt line 2: $\times$ may look prettier here.
 # 170 176 180 190 2 20 200 2023 21 215 23 230 254 26 269 27 28 298 2x 3 30 31
 #                                                                   ^
 #
@@ -60,10 +60,10 @@ public/index.html: resume.pdf resume.html resume.txt
 	html2text -ascii -o $@ $<
 
 # For each thing that depends on 'resume.tex', add dependencies on
-# 'resume.hidden.txt' and 'email.txt'. Do this because 'resume.tex' "includes"
-# 'resume.hidden.txt' and 'email.txt'.
-resume.pdf: resume.hidden.txt email.txt
-resume.html: resume.hidden.txt email.txt
+# 'hidden.txt' and 'email.txt'. Do this because 'resume.tex' "includes"
+# 'hidden.txt' and 'email.txt'.
+resume.pdf: hidden.txt email.txt
+resume.html: hidden.txt email.txt
 
 ################################################################################
 #
@@ -80,30 +80,25 @@ email.txt.$(EMAIL_MD5):
 	rm -f email.txt.*
 	echo $(EMAIL) >$@
 
-HIDDEN_TEXT_URL ?= https://blank.page/
+HIDDEN_TEXT_URL ?= file:///dev/null
 HIDDEN_TEXT_URL_MD5 = $(call resume_late_eval,HIDDEN_TEXT_URL_MD5,echo $(HIDDEN_TEXT_URL) | md5sum | grep -Eo '^[[:xdigit:]]{32}')
-
-resume.hidden.txt: HIDDEN_TEXT.dict.$(HIDDEN_TEXT_URL_MD5)
+hidden.txt: hidden.txt.$(HIDDEN_TEXT_URL_MD5)
 	cp -v $< $@
-
-HIDDEN_TEXT.dict.$(HIDDEN_TEXT_URL_MD5): HIDDEN_TEXT.txt.$(HIDDEN_TEXT_URL_MD5)
-	sed -e 's/\x1b\[[0-9;?]*[JKmsu]//g' -e 's/[^\x00-\x7f]//g' <$< \
+hidden.txt.$(HIDDEN_TEXT_URL_MD5):
+	rm -f hidden.txt.*
+	curl -fsSLo $@.html $(HIDDEN_TEXT_URL)
+	html2text -o $@.txt $@.html
+	sed -e 's/\x1b\[[0-9;?]*[JKmsu]//g' -e 's/[^\x00-\x7f]//g' $@.txt \
 		| tr -s '[:punct:]' ' ' \
 		| tr '[:upper:]' '[:lower:]' \
 		| grep -Eo '[[:graph:]]{2,}' \
 		| grep -Exv '[[:digit:]]+' \
 		| grep -Fxvf block.list \
-		| sort -u >$@
-
-HIDDEN_TEXT.txt.$(HIDDEN_TEXT_URL_MD5): HIDDEN_TEXT.html.$(HIDDEN_TEXT_URL_MD5)
-	html2text <$< >$@
-
-HIDDEN_TEXT.html.$(HIDDEN_TEXT_URL_MD5): HIDDEN_TEXT.url.$(HIDDEN_TEXT_URL_MD5)
-	xargs curl -fsSLo $@ <$<
-
-HIDDEN_TEXT.url.$(HIDDEN_TEXT_URL_MD5):
-	rm -f HIDDEN_TEXT.*
-	echo "$(HIDDEN_TEXT_URL)" >$@
+		| sort -u \
+		| tr '\n' ' ' \
+		| fold -sw79 \
+		| sed -E -e 's/[[:space:]]+$$//g' \
+		| awk 1 >$@
 
 ################################################################################
 
@@ -124,8 +119,8 @@ clean:
 		-o -name '*.svg' \
 		-o -name '*.txt' \
 		-o -name '*~' \
-		-o -name 'HIDDEN_TEXT.*' \
 		-o -name 'WARNINGS' \
 		-o -name 'email.txt.*' \
+		-o -name 'hidden.txt.*' \
 		\) \
 		-exec rm -vf {} +
