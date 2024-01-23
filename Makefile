@@ -59,9 +59,9 @@ public/index.html: resume.pdf resume.html resume.txt
 %.txt: %.html
 	html2text -ascii -o $@ $<
 
-# For each thing that depends on 'resume.tex', add dependencies on
-# 'hidden.txt' and 'email.txt'. Do this because 'resume.tex' "includes"
-# 'hidden.txt' and 'email.txt'.
+# For each thing that depends on 'resume.tex', add dependencies on 'hidden.txt'
+# and 'email.txt'. Do this because 'resume.tex' "includes" 'hidden.txt' and
+# 'email.txt'.
 resume.pdf: hidden.txt email.txt
 resume.html: hidden.txt email.txt
 
