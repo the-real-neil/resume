@@ -124,3 +124,4 @@ clean:
 		-o -name 'hidden.txt.*' \
 		\) \
 		-exec rm -vf {} +
+	find . -type d -empty -delete
