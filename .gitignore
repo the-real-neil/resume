@@ -9,6 +9,6 @@
 *.svg
 *.txt
 *~
-HIDDEN_TEXT.*
 WARNINGS
 email.txt.*
+hidden.txt.*
