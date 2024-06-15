@@ -72,7 +72,9 @@ resume.html: hidden.txt email.txt
 # https://stackoverflow.com/questions/11647859/make-targets-depend-on-variables/11649835#11649835
 #
 
-EMAIL ?= $(call resume_late_eval,EMAIL,duck-gen)
+ifeq (,$(EMAIL))
+EMAIL = u59t7led@duck.com
+endif
 EMAIL_MD5 = $(call resume_late_eval,EMAIL_MD5,echo $(EMAIL) | md5sum | grep -Eo '^[[:xdigit:]]{32}')
 email.txt: email.txt.$(EMAIL_MD5)
 	cp -v $< $@
@@ -80,7 +82,9 @@ email.txt.$(EMAIL_MD5):
 	rm -f email.txt.*
 	echo $(EMAIL) >$@
 
-HIDDEN_TEXT_URL ?= file:///dev/null
+ifeq (,$(HIDDEN_TEXT_URL))
+HIDDEN_TEXT_URL = file:///dev/null
+endif
 HIDDEN_TEXT_URL_MD5 = $(call resume_late_eval,HIDDEN_TEXT_URL_MD5,echo $(HIDDEN_TEXT_URL) | md5sum | grep -Eo '^[[:xdigit:]]{32}')
 hidden.txt: hidden.txt.$(HIDDEN_TEXT_URL_MD5)
 	cp -v $< $@
