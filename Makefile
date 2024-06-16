@@ -19,6 +19,22 @@ resume_late_eval ?= $(or $(value RESUME_CACHE_$(1)),$(eval RESUME_CACHE_$(1) := 
 .PHONY: all
 all: resume.pdf resume.html resume.txt
 
+# 'GyrosGeier', 'oftc#debian-dpkg', 2024-05-31T03:31:39+0000:
+#
+#     e.g. some people use
+#
+#         ifneq(,$(filter clean,$MAKECMDGOALS))
+#         all: | clean
+#         endif
+#
+#     to protect against stupid people calling "make -j2 clean all"
+#
+# If 'clean' is in '$(MAKECMDGOALS)', then let 'clean' be an order-only
+# prerequisite of 'all'.
+ifneq (,$(filter clean,$(MAKECMDGOALS)))
+all: | clean
+endif
+
 .PHONY: check
 #
 # $ chktex resume.tex
