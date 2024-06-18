@@ -121,6 +121,7 @@ hidden.txt.$(HIDDEN_TEXT_URL_MD5):
 ################################################################################
 
 .PHONY: clean
+.NOTPARALLEL: clean
 clean:
 	find . \
 		-type f \
