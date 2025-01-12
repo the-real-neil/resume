@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# resume/phone-gen
+
+set -euvx
+
+curl -fsSL https://phonegenerator.net/us-phone-number \
+    | html2text \
+    | awk -F';' '/[*][ ][&][#][x][2][B][;]/{print $NF}' \
+    ;
