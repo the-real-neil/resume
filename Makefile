@@ -109,7 +109,7 @@ hidden.txt.$(HIDDEN_TEXT_URL_MD5):
 	sed -e 's/\x1b\[[0-9;?]*[JKmsu]//g' -e 's/[^\x00-\x7f]//g' $@.txt \
 		| tr -s '[:punct:]' ' ' \
 		| tr '[:upper:]' '[:lower:]' \
-		| grep -Eo '[[:graph:]]{2,}' \
+		| grep -Eo '[[:graph:]]{3,}' \
 		| grep -Exv '[[:digit:]]+' \
 		| grep -Fxvf block.list \
 		| sort -u \
